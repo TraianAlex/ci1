@@ -1,3 +1,4 @@
+<div id="content">
 <?php
 
 $tpl = "<h2>%s</h2>
@@ -6,4 +7,5 @@ $tpl = "<h2>%s</h2>
 
 foreach ($news as $news_item):
     echo sprintf($tpl, $news_item['title'], $news_item['text'], $news_item['slug']);
-endforeach;
+endforeach;?>
+</div>

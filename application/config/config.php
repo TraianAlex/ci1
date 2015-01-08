@@ -16,10 +16,10 @@
 //$config['base_url']	= '';
 switch ($_SERVER["SERVER_NAME"]) {
     case "localhost":
-        $config["base_url"] = "//localhost/ci1/";
+        $config["base_url"] = "http://localhost/ci1";
         break;
     case "www.codeigniter1.embassy-pub.ro":
-        $config["base_url"] = "http://www.codeigniter1.embassy-pub.ro/";
+        $config["base_url"] = "http://www.codeigniter1.embassy-pub.ro";
         break;
 }
 /*

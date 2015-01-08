@@ -1,3 +1,4 @@
+<div id="content">
        <?php if (validation_errors()) : ?>
             <?php echo validation_errors(); ?>
         <?php endif; ?>
@@ -30,6 +31,6 @@
         </table>
 
         <?php echo form_close(); ?>
-
+</div>
     </body>
 </html>

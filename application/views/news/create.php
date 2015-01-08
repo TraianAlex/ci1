@@ -1,3 +1,4 @@
+<div id="content">
 <h2>Create a news item</h2>
 
 <?php echo validation_errors(); ?>
@@ -13,3 +14,4 @@
 	<input type="submit" name="submit" value="Create news item" />
 
 </form>
+</div>

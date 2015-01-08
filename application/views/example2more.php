@@ -1,3 +1,4 @@
+<div id="content">
 <table>
 <tr>
   <td>Key</td>
@@ -12,5 +13,6 @@
 <?php endforeach; ?>
 </table>
 
+</div>
 </body>
 </html>

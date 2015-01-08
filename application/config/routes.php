@@ -40,21 +40,21 @@
 /*$route['default_controller'] = "posts";
 $route['404_override'] = '';*/
 
-//http://localhost/ci1/index.php/contact
+//http://localhost/ci1/contact
 //if no folder $route['contact'] = 'contact/index/contactview (the index file is contactview)';
 $route['contact'] = 'contact';//folder contact func index
-//http://localhost/ci1/index.php/user
+//http://localhost/ci1/user
 $route['user'] = 'user/users/userview';//folder users / func users
-//http://localhost/ci1/index.php/example2/more/1/2/3
+//http://localhost/ci1/example2/more/1/2/3
 $route['example2/(:any)'] = 'example2/more/$1/$2/$3';//no folder / f more
 
-//http://localhost/ci1/index.php/news/create
+//http://localhost/ci1/news/create
 $route['news/create'] = 'news/create';//db / form insert folder news
 $route['news/(:any)'] = 'news/view/$1';//db / view a selection folder news
 $route['news'] = 'news';//db / all folder news / func index
 
 $route['divers'] = 'hello/divers';
-//http://localhost/ci1/index.php/hello
+//http://localhost/ci1/hello
 $route['hello'] = 'hello';//static / no folder / func index
 $route['(:any)'] = 'pages/view/$1';//static folder pages
 $route['default_controller'] = 'pages/view';
