@@ -49,14 +49,15 @@ class Contact extends CI_Controller {
 
         // Setting validation rules
         $config_form_rules = array(
-            array('field' => 'contact_name', 'label' => 'Contact Name',
+            array('field' => 'contact_name',
+                 'label' => 'Contact Name',
                  'rules' => 'trim|required'),
-            array('field' => 'contact_email', 'label' => 'Contact Email',
+            array('field' => 'contact_email',
+                 'label' => 'Contact Email',
                  'rules' => 'trim|required|valid_email')
         );
         $this->form_validation->set_rules($config_form_rules);
-        $this->form_validation->set_rules('contact_message', 'Contact Message',
-                                    'trim|required');
+        $this->form_validation->set_rules('contact_message', 'Contact Message', 'trim|required');
 
         // Validating the form
         if ($this->form_validation->run() == FALSE) { // VAlidation failed
@@ -89,6 +90,3 @@ class Contact extends CI_Controller {
     }
 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
