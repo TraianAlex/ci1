@@ -5,7 +5,7 @@
 #</IfModule>
 
 RewriteEngine On
-RewriteBase /ci1
+RewriteBase /ci1/
 RewriteCond %{REQUEST_URI} ^application.*
 RewriteRule ^(.*)$ /index.php?/$1 [L]
 RewriteCond $1 !^(index\.php|images|assets|js|css|robots\.txt)
