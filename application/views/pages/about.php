@@ -1,5 +1,3 @@
 <div id="content">
-<?php
-
-echo "Hello World!--- about";?>
+	<?="About";?>
 </div>

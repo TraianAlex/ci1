@@ -1,9 +1,3 @@
-#<IfModule mod_rewrite.c>
-#RewriteEngine onCodeigniter
-#RewriteCond $1 !^(index\.php|images|robots\.txt)
-#RewriteRule ^(.*)$ index.php/$1 [L]
-#</IfModule>
-
 RewriteEngine On
 RewriteBase /ci1/
 RewriteCond %{REQUEST_URI} ^application.*

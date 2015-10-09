@@ -7,4 +7,3 @@ $tpl = '<h2>%s</h2>
 
 echo sprintf($tpl, $news_item['title'], $news_item['text']);?>
 </div>
-

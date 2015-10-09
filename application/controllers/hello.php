@@ -2,32 +2,121 @@
 
 class Hello extends CI_Controller {
 
+    public function __construct(){
+        parent::__construct();
+        $this->is_logged_in();
+        $this->load->model('posts');
+        $this->output->enable_profiler(TRUE);
+    }
+
+    public function is_logged_in(){
+        $is_logged_in = $this->session->userdata('is_logged_in');
+        if(!isset($is_logged_in) || $is_logged_in != true){
+            $this->session->set_flashdata('message', 'Please Login');
+            redirect('auth');
+        }
+    }
     public function index() {
-        //start from dropdown
-        $variable = null;
-        $this->load->helper('form');
+
+        $this->load->library('table');
+        $datas = $this->posts->get();
+        $posts = [];
+        foreach ($datas as $data) {
+            $posts[] = [
+                $data->postID,
+                $data->title,
+                $data->post,
+                $data->date_added,
+                anchor('hello/view/'.$data->postID, 'View').' | '.
+                anchor('hello/delete/'.$data->postID, 'Delete')
+            ];
+        }
+        $this->load->view('templates/template', ['main' => 'hello/helloview', 'posts' => $posts]);
+    }
+
+    public function new_post(){
+        
+        if(!$this->correct_permissions('author')){
+            redirect('auth');
+        }
         $this->load->library('form_validation');
-        $urlarray = array('1' => 'www.this.com',
-                        '2' => 'www.that.com',
-                        '3' => 'www.theother.com');
-        $variable .= form_dropdown('url', $urlarray, '1');
-        //end form dropdown
-        $view_params = array(
-                        'mega_title' => 'Codeigniter - Hello World',
-                        'title' => 'Welcome to Codegniter',
-                        'message' => 'Hello World',
-                        'variable' => $variable
-                        );
+        $this->form_validation->set_rules('title', 'Title', 'trim|required|alpha|min_length[3]|max_length[255]|xss_clean');
+        $this->form_validation->set_rules('post', 'Text', 'trim|required|min_length[2]|max_length[255]|xss_clean');
+        $this->form_validation->set_error_delimiters('<div class="alert alert-info" role="alert">', '</div>');
+        if($this->form_validation->run() == false){
+            $this->index();
+        }else{
+            $post = new Posts();
+            $post->title = $this->input->post('title');
+            $post->post = $this->input->post('post');
+            $post->date_added = date('Y-m-d H:i:s');
+            $post->userID = $this->session->userdata('userID');
+            $post->active = 1;
+            $post->save();
+            $this->session->set_flashdata('message', 'Data inserted');
+            redirect('hello');
+        }
+    }
 
-        $data['title'] = ucfirst($view_params['title']);
-        $this->load->view('templates/header', $data);
-        $this->load->view('helloview', $view_params);
+    public function view($postID){
+        $post = new Posts();
+        $post->load($postID);
+        if (!$post->postID) {
+            show_404();
+        }
+        $this->load->view('templates/template', ['main' => 'hello/post', 'post' => $post]);
+    }
 
-        $this->divers();
+    public function edit($postID){
+        $post = new Posts();
+        $post->load($postID);
+        if (!$post->postID) {
+            show_404();
+        }
 
-        $this->addStaff();
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('title', 'Title', 'trim|required|min_length[3]|max_length[255]|xss_clean');
+        $this->form_validation->set_rules('post', 'Text', 'trim|required|min_length[2]|max_length[255]|xss_clean');
+        $this->form_validation->set_error_delimiters('<div class="alert alert-info" role="alert">', '</div>');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/template', ['main' => 'hello/add-edit', 'post' => $post]);
+        }else{
+            $post = new Posts();
+            $post->title = $this->input->post('title');
+            $post->post = $this->input->post('post');
+            $post->date_added = date('Y-m-d H:i:s');
+            $post->userID = $this->session->userdata('userID');
+            $post->active = 1;
+            if($post->save()){
+                $this->session->set_flashdata('message', 'Data updated');
+                redirect('hello/view/'.$postID);
+            }else{
+                $this->session->set_flashdata('message', 'Problem updating data');
+                redirect('hello/edit/'.$postID);
+            }
+        }
+    }
 
-        $this->load->view('templates/footer', $data);
+    public function delete($postID){
+        $post = new Posts();
+        $post->load($postID);
+        if (!$post->postID) {
+            show_404();
+        }
+        $post->delete();
+        $this->session->set_flashdata('message', 'Data deleted');
+        redirect('hello');
+    }
+
+    public function correct_permissions($required){
+        $user_type = $this->session->userdata('user_type');
+        if($required == 'user'){
+           if ($user_type == 'user') return true;
+        }elseif ($required == 'author') {
+            if ($user_type == 'admin' || $user_type == 'author') return true;
+        }elseif ($required == 'admin') {
+            if ($user_type == 'admin') return true;
+        }
     }
 
     public function divers() {
@@ -41,13 +130,12 @@ class Hello extends CI_Controller {
 
         $data['addTotal'] = $this->math->add($data['val1'], $data['val2']);
         $data['subTotal'] = $this->math->sub($data['val1'], $data['val2']);
-        $this->load->view('divers', $data);
+        $data['main'] = 'hello/divers';
+        $this->load->view('templates/template', $data);
     }
 
     public function addStaff() {
-
         $this->load->model('math');
         echo $this->math->add(2, 3);
     }
-
 }

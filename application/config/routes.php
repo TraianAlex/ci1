@@ -37,14 +37,27 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-/*$route['default_controller'] = "posts";
-$route['404_override'] = '';*/
+$route['auth'] = 'auth';
+$route['auth/login_validation'] = 'auth/login_validation';
+$route['auth/logout'] = 'auth/logout';
 
+$route['helpers/area_of_circle/(:any)'] = 'helpers/area_of_circle/$1';
+$route['helpers/show_mysql_date'] = 'helpers/show_mysql_date';
+$route['helpers/new_library'] = 'helpers/new_library';
+$route['helpers/new_library2'] = 'helpers/new_library2';
+$route['helpers/test_form'] = 'helpers/test_form';
+$route['helpers/form'] = 'helpers/form';
+$route['helpers/form_submit'] = 'helpers/form_submit';
 //http://localhost/ci1/contact
 //if no folder $route['contact'] = 'contact/index/contactview (the index file is contactview)';
 $route['contact'] = 'contact';//folder contact func index
+$route['contact/multiple_email'] = 'contact/multiple_email';
 //http://localhost/ci1/user
 $route['user'] = 'user/users/userview';//folder users / func users
+$route['user/add_new'] = 'user/add_new';
+$route['user/create'] = 'user/create';
+$route['user/delete/(:any)'] = 'user/delete/$1';
+$route['user/update/(:any)'] = 'user/update/$1';
 //http://localhost/ci1/example2/more/1/2/3
 $route['example2/(:any)'] = 'example2/more/$1/$2/$3';//no folder / f more
 
@@ -56,9 +69,14 @@ $route['news'] = 'news';//db / all folder news / func index
 $route['divers'] = 'hello/divers';
 //http://localhost/ci1/hello
 $route['hello'] = 'hello';//static / no folder / func index
+$route['hello/new_post'] = 'hello/new_post';
+$route['hello/view/(:any)'] = 'hello/view/$1';
+$route['hello/edit/(:any)'] = 'hello/edit/$1';
+$route['hello/delete/(:any)'] = 'hello/delete/$1';
+
 $route['(:any)'] = 'pages/view/$1';//static folder pages
+
 $route['default_controller'] = 'pages/view';
 $route['404_override'] = '';
-
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
