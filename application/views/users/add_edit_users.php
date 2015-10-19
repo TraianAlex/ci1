@@ -1,29 +1,30 @@
+<style type="text/css">label{display: block;}</style>
 <div id="content">
-	<h2>Create/Edit</h2>
+	<h2><?php echo empty($id) ? 'Add' : 'Edit';?> user</h2>
 	<div id="create_user">
-		<?php isset($user_id) ? print form_open("user/update/$user_id") : print form_open('user/create');
+		<?php isset($id) ? print form_open("user/update/$id") : print form_open('user/create');
 
 		$fname_data = [
-	              'name'        => 'fname',
-	              'id'          => 'fname',
-	              'value'       => isset($user_fname) ? $user_fname : set_value('fname')
+	              'name'        => 'user_fname',
+	              'id'          => 'user_fname',
+	              'value'       => isset($user_fname) ? $user_fname : set_value('user_fname')
 	            ];
         $lname_data = [
-		          'name'        => 'lname',
-		          'id'          => 'lname',
-		          'value'       => isset($user_lname) ? $user_lname : set_value('lname')
+		          'name'        => 'user_lname',
+		          'id'          => 'user_lname',
+		          'value'       => isset($user_lname) ? $user_lname : set_value('user_lname')
         ];?>
 	    <div class="form-group">
-		    <?=form_label('First Name: ', 'fname');
+		    <?=form_label('First Name ', 'user_fname');
 			echo form_input($fname_data);?>
 		</div>
 		<div class="form-group">
-		    <?=form_label('Last Name: ', 'lname');
+		    <?=form_label('Last Name ', 'user_lname');
 			echo form_input($lname_data);?>
 		</div>
 		<div class="form-group">
-			<label for="email">Email Address: </label>
-			<input type="email" name="email" id="email" value="<?=isset($user_email) ? $user_email : set_value('email')?>" />
+			<label for="user_email">Email Address </label>
+			<input type="email" name="user_email" id="user_email" value="<?=isset($user_email) ? $user_email : set_value('user_email')?>" />
 		</div>
 		<p>
 			<?=form_submit('submit', 'Submit', 'class="btn btn-primary"');?>

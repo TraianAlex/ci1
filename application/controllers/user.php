@@ -15,38 +15,57 @@ class User extends CI_Controller {
 		$this->load->view('templates/template', $view_params);
 	}
 
-	public function add_new(){
-		$data['main'] = 'users/add_edit_users';
-		$this->load->view('templates/template', $data);
-	}
-
 	public function create(){
-		$data = [
-			'user_fname' => $this->input->post('fname'),
-			'user_lname' => $this->input->post('lname'),
-			'user_email' => $this->input->post('email')
-		];
-		$this->usermodel->add_user($data);
-		$this->users();
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('user_fname', 'First name', 'trim|required|min_length[3]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('user_lname', 'Last name', 'trim|required|min_length[3]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('user_email', 'Email', 'trim|required|min_length[5]|max_length[35]|valid_email|is_unique[users.user_email]|xss_clean');
+		if($this->form_validation->run() == FALSE){
+			$data['main'] = 'users/add_edit_users';
+			$this->load->view('templates/template', $data);
+		}else{
+			$data = $this->usermodel->array_from_post(['user_fname', 'user_lname', 'user_email']);
+			$this->usermodel->add_user($data);
+			redirect('user/users');	
+		}
 	}
 
 	public function update(){
-		if($_POST){
-			$data = [
-				'user_fname' => $this->input->post('fname'),
-				'user_lname' => $this->input->post('lname'),
-				'user_email' => $this->input->post('email')
-			];
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('user_fname', 'First name', 'trim|required|min_length[3]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('user_lname', 'Last name', 'trim|required|min_length[3]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('user_email', 'Email', 'trim|required|min_length[5]|max_length[35]|valid_email|callback__unique_email|xss_clean');
+		if($this->form_validation->run() == FALSE){
+			$data = $this->usermodel->get_user();
+			$data['main'] = 'users/add_edit_users';
+			$this->load->view('templates/template', $data);
+		}else{
+			$data = $this->usermodel->array_from_post(['user_fname', 'user_lname', 'user_email']);
+			$data['created_at'] = $this->usermodel->created_at()->created_at;
+			$data['updated_at'] = date('Y-m-d H:i:s');
 			$this->usermodel->update_user($data);
 			redirect('user');
 		}
-		$data = $this->usermodel->get_user();
-		$data['main'] = 'users/add_edit_users';
-		$this->load->view('templates/template', $data);
 	}
 
 	public function delete(){
 		$this->usermodel->delete_user();
-		$this->users();
+		$this->session->set_flashdata('message', 'User deleted');
+		redirect('user/users');
+	}
+	// Do NOT validate if email already exists
+	// UNLESS it's the email for the current user
+	public function _unique_email ($str){
+		
+		$id = $this->uri->segment(3);
+		$this->db->where('user_email', $this->input->post('user_email'));
+		!$id || $this->db->where('id !=', $id);
+		$user = $this->db->get('users')->result();
+		
+		if (count($user)) {
+			$this->form_validation->set_message('_unique_email', '%s should be unique');
+			return FALSE;
+		}
+		return TRUE;
 	}
 }

@@ -1,5 +1,5 @@
 <div id="content">
-	<h3>Add-edit post</h3>
+	<h3><?php echo empty($post->postID) ? 'Add' : 'Edit';?> post</h3>
 	<?=validation_errors();
 	
 		isset($post->postID) ? print form_open("hello/edit/$post->postID") : print form_open('hello/new_post');

@@ -2,17 +2,13 @@
 
 class Usermodel extends CI_Model {
 
-    public function __construct(){
-        parent::__construct();
-    }
-
 	public function get_users(){
 		$query = $this->db->get('users');
 		return $query->result();
 	}
 
 	public function get_user(){
-        $this->db->select()->from('users')->where(['user_id' => $this->uri->segment(3)]);
+        $this->db->select()->from('users')->where(['id' => $this->uri->segment(3)]);
         $query = $this->db->get();
         return $query->first_row('array');
     }
@@ -23,18 +19,35 @@ class Usermodel extends CI_Model {
 	}
 
 	public function update_user($data){
-		$this->db->where('user_id', $this->uri->segment(3));
+		$this->db->where('id', $this->uri->segment(3));
         $this->db->update('users', $data);
     }
 
-    public function delete_user() {
-        $this->db->where('user_id', $this->uri->segment(3));
-        $this->db->delete('users');
+    public function created_at(){
+        $this->db->where('id', $this->uri->segment(3));
+        $this->db->select('created_at')->from('users');
+        $q = $this->db->get();
+        return $q->first_row();
     }
 
+    public function delete_user() {
+        $this->db->where('id', $this->uri->segment(3));
+        $this->db->delete('users');
+    }
+    /*
+    * get all email from table
+    */
     public function get_emails(){
         $this->db->select('user_email')->from('users');
         $q = $this->db->get();
         return $q->result_array();
+    }
+
+    public function array_from_post($fields){
+        $data = array();
+        foreach ($fields as $field) {
+            $data[$field] = $this->input->post($field);
+        }
+        return $data;
     }
 }

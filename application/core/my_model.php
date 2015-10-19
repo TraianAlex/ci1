@@ -15,7 +15,7 @@ class MY_Model extends CI_Model {
      * Update record.
      */
     private function update() {
-        $this->db->update($this::DB_TABLE, $this, $this::DB_TABLE_PK);
+        $this->db->update($this::DB_TABLE, $this, [$this::DB_TABLE_PK => $this->{$this::DB_TABLE_PK}]);
     }
     /**
      * Populate from an array or standard class.
@@ -38,8 +38,11 @@ class MY_Model extends CI_Model {
      * Delete the current record.
      */
     public function delete() {
-        $this->db->delete($this::DB_TABLE, [$this::DB_TABLE_PK => $this->{$this::DB_TABLE_PK}]);
-        unset($this->{$this::DB_TABLE_PK});
+        if($this->db->delete($this::DB_TABLE, [$this::DB_TABLE_PK => $this->{$this::DB_TABLE_PK}])){
+            unset($this->{$this::DB_TABLE_PK});
+            return true;
+        }
+        return false;
     }
     /**
      * Save the record.

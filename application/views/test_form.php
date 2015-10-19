@@ -1,6 +1,5 @@
 <div id="content">
-	<?php
-	echo form_open('helpers/form_submit');
+	<?=form_open('helpers/form_submit');
 	echo validation_errors('<p>', '</p>');?>
 	<p>
 		Username: <?=form_input('username', set_value('username'));?>

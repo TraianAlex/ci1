@@ -82,18 +82,15 @@ class Hello extends CI_Controller {
             $this->load->view('templates/template', ['main' => 'hello/add-edit', 'post' => $post]);
         }else{
             $post = new Posts();
+            $post->postID = $this->uri->segment(3);
             $post->title = $this->input->post('title');
             $post->post = $this->input->post('post');
             $post->date_added = date('Y-m-d H:i:s');
             $post->userID = $this->session->userdata('userID');
             $post->active = 1;
-            if($post->save()){
-                $this->session->set_flashdata('message', 'Data updated');
-                redirect('hello/view/'.$postID);
-            }else{
-                $this->session->set_flashdata('message', 'Problem updating data');
-                redirect('hello/edit/'.$postID);
-            }
+            $post->save();
+            $this->session->set_flashdata('message', 'Data updated');
+            redirect('hello/view/'.$postID);
         }
     }
 
@@ -103,8 +100,11 @@ class Hello extends CI_Controller {
         if (!$post->postID) {
             show_404();
         }
-        $post->delete();
-        $this->session->set_flashdata('message', 'Data deleted');
+        if($post->delete()){
+            $this->session->set_flashdata('message', 'Data deleted');
+        }else{
+            $this->session->set_flashdata('message', 'Problem deleting data');
+        }
         redirect('hello');
     }
 

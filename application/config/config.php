@@ -16,7 +16,7 @@
 //$config['base_url']	= '';
 switch ($_SERVER["SERVER_NAME"]) {
     case "localhost":
-        $config["base_url"] = "http://localhost/ci1";
+        $config["base_url"] = "http://localhost/codeigniter/ci1";
         break;
     case "www.codeigniter1.embassy-pub.ro":
         $config["base_url"] = "http://www.codeigniter1.embassy-pub.ro";
@@ -214,7 +214,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'jhchgkbmnvrshjhfjfkhdgxmnbchgfhgdhgnchgxhj';
+$config['encryption_key'] = '8L8QNx44PK3QeO37dy8Kwyeu8l8f886Z';
 /*
 |--------------------------------------------------------------------------
 | Session Variables

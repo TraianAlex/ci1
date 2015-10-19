@@ -54,7 +54,7 @@ $route['contact'] = 'contact';//folder contact func index
 $route['contact/multiple_email'] = 'contact/multiple_email';
 //http://localhost/ci1/user
 $route['user'] = 'user/users/userview';//folder users / func users
-$route['user/add_new'] = 'user/add_new';
+$route['user/users'] = 'user/users';
 $route['user/create'] = 'user/create';
 $route['user/delete/(:any)'] = 'user/delete/$1';
 $route['user/update/(:any)'] = 'user/update/$1';

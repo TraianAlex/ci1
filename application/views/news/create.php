@@ -1,9 +1,9 @@
 <div id="content">
 	<h2>Create a news item</h2>
 
-	<?php echo validation_errors(); ?>
+	<?=validation_errors(); ?>
 
-	<?php echo form_open('news/create') ?>
+	<?=form_open('news/create') ?>
 
 	<label for="title">Title</label>
 	<input type="input" name="title" /><br />

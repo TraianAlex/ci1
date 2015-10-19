@@ -4,9 +4,13 @@
 <meta charset="utf-8">
     <title>CI1</title>
     <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <?=link_tag("assets/css/bootstrap.min.css")?>
     <script src="//code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="<?=base_url()?>styles/style.css" />
+    <script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>assets/js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="<?=base_url()?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="<?=base_url()?>assets/style.css" />
 </head>
 <br>
     <div class="navbar navbar-inverse navbar-static-top" role="navigation">
