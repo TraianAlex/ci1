@@ -55,7 +55,7 @@ class User extends CI_Controller {
 	}
 	// Do NOT validate if email already exists
 	// UNLESS it's the email for the current user
-	public function _unique_email ($str){
+	public function _unique_email(){
 		
 		$id = $this->uri->segment(3);
 		$this->db->where('user_email', $this->input->post('user_email'));

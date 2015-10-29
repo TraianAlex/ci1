@@ -18,7 +18,7 @@ switch ($_SERVER["SERVER_NAME"]) {
     case "localhost":
         $config["base_url"] = "http://localhost/codeigniter/ci1";
         break;
-    case "www.codeigniter1.embassy-pub.ro":
+    case "codeigniter1.embassy-pub.ro":
         $config["base_url"] = "http://www.codeigniter1.embassy-pub.ro";
         break;
 }

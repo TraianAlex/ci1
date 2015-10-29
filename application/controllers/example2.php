@@ -23,3 +23,4 @@ class Example2 extends CI_Controller {
         $this->load->view('templates/template', $view_params);
 	}
 }
+
