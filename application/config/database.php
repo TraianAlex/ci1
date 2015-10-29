@@ -74,9 +74,9 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 $db['production']['hostname'] = 'localhost';
-$db['production']['username'] = 'remb4372_victor';
-$db['production']['password'] = 'naiart92';
-$db['production']['database'] = 'remb4372_codeigniter1';
+$db['production']['username'] = '';
+$db['production']['password'] = '';
+$db['production']['database'] = '';
 $db['production']['dbdriver'] = 'mysqli';
 $db['production']['dbprefix'] = '';
 $db['production']['pconnect'] = TRUE;
